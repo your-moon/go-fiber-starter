@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -22,7 +21,6 @@ func initConfig() {
 		if err := viper.ReadInConfig(); err != nil {
 			panic(fmt.Errorf("Fatal error config file: %s \n", err))
 		}
-		color.Green("Using config file: %s", viper.ConfigFileUsed())
 		return
 	}
 

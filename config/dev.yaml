@@ -3,7 +3,7 @@ server:
   app_prefork: true
   port: 8080
   host: "localhost"
-database:
+db:
   name: "starter"
   user: "root"
   password: "root"

@@ -3,8 +3,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/fatih/color"
-	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -17,33 +15,21 @@ func Execute() {
 }
 
 func initConfig() {
+
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
-	} else {
-		viper.AddConfigPath("./config/")
-		switch {
-		case Prod:
-			viper.SetConfigName("prod")
-		case Test:
-			viper.SetConfigName("test")
-		default:
-			viper.SetConfigName("dev")
-		}
-		viper.SetConfigType("yaml")
-
-		err := viper.ReadInConfig()
-		if err != nil {
-			panic(fmt.Errorf("Fatal error config file: %s \n", err))
-		}
-
-		viper.OnConfigChange(func(e fsnotify.Event) {
-			color.Yellow("Config file changed: %s", e.Name)
-		})
-
-		viper.WatchConfig()
-
-		color.Green("Using config file: %s", viper.ConfigFileUsed())
+		return
 	}
+
+	viper.AddConfigPath("./config/")
+	viper.SetConfigName("dev")
+	viper.SetConfigType("yaml")
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	}
+
 }
 
 func init() {

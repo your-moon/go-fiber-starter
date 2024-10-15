@@ -1,4 +1,4 @@
-### TechPartners - Go Gorm Fiber starter
+### Go Gorm Fiber starter
 
 This is a starter project for a REST API using Gorm and Fiber.
 

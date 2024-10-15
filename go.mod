@@ -1,4 +1,4 @@
-module git.fibo.cloud/techpartners/starter/tech-starter-gorm-fiber
+module github.com/your-moon/go-fiber-starter
 
 go 1.22.6
 

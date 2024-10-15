@@ -1,7 +1,7 @@
 package main
 
 import (
-	"git.fibo.cloud/techpartners/starter/tech-starter-gorm-fiber/cmd"
+	"github.com/your-moon/go-fiber-starter/cmd"
 )
 
 func main() {

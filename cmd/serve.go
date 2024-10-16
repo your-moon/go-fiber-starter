@@ -19,34 +19,40 @@ var serveCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		UseProdConfig()
 		if Prod {
-			dbConfigUrl := fmt.Sprintf(
-				"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-				viper.GetString("db.host"),
-				viper.GetString("db.port"),
-				viper.GetString("db.user"),
-				viper.GetString("db.password"),
-				viper.GetString("db.name"),
-			)
-			fmt.Println("ViperConfig: ", dbConfigUrl)
-
-			db, err := gorm.Open(postgres.Open(dbConfigUrl), &gorm.Config{
-				PrepareStmt:                              true,
-				SkipDefaultTransaction:                   true,
-				DisableForeignKeyConstraintWhenMigrating: true,
-			})
-			if err != nil {
-				panic(err.Error())
-			}
-
-			services.DB = db
-
-			app := api.Init()
-			app.Listen(viper.GetString("server.host") + ":" + viper.GetString("server.port"))
+			runProd()
 		} else {
 			fmt.Println("Running in development mode")
 		}
 		return nil
 	},
+}
+
+func runProd() {
+	fmt.Println("Running in production mode")
+
+	dbConfigUrl := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		viper.GetString("db.host"),
+		viper.GetString("db.port"),
+		viper.GetString("db.user"),
+		viper.GetString("db.password"),
+		viper.GetString("db.name"),
+	)
+	fmt.Println("ViperConfig: ", dbConfigUrl)
+
+	db, err := gorm.Open(postgres.Open(dbConfigUrl), &gorm.Config{
+		PrepareStmt:                              true,
+		SkipDefaultTransaction:                   true,
+		DisableForeignKeyConstraintWhenMigrating: true,
+	})
+	if err != nil {
+		panic(err.Error())
+	}
+
+	services.DB = db
+
+	app := api.Init()
+	app.Listen(viper.GetString("server.host") + ":" + viper.GetString("server.port"))
 }
 
 func init() {

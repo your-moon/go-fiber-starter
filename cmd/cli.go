@@ -15,6 +15,12 @@ func Execute() {
 	rootCmd.Execute()
 }
 
+func init() {
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().
+		StringVar(&cfgFile, "config", "", "config file (default is $CURRENT_DIR/config/dev.yaml)")
+}
+
 func initConfig() {
 
 	if cfgFile != "" {
@@ -35,10 +41,4 @@ func initConfig() {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-}
-
-func init() {
-	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().
-		StringVar(&cfgFile, "config", "", "config file (default is $CURRENT_DIR/config/dev.yaml)")
 }

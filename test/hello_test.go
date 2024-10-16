@@ -24,3 +24,15 @@ func TestGetUser(t *testing.T) {
 		"email": user.Email,
 	})
 }
+
+func TestCreateUser(t *testing.T) {
+	freshDB()
+
+	e := FiberHTTPExpect(t)
+	e.POST("/user").WithJSON(map[string]interface{}{
+		"email": "tester@gmail.com",
+	}).Expect().Status(200).JSON().Object().ContainsSubset(map[string]interface{}{
+		"email": "tester@gmail.com",
+	})
+
+}

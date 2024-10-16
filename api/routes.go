@@ -25,5 +25,18 @@ func Init() *fiber.App {
 		return c.JSON(user)
 	})
 
+	App.Post("/user", func(c *fiber.Ctx) error {
+		var params models.User
+		if err := c.BodyParser(&params); err != nil {
+			return c.Status(400).SendString(err.Error())
+		}
+
+		if err := services.DB.Create(&params).Error; err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+
+		return c.JSON(params)
+	})
+
 	return App
 }

@@ -22,3 +22,9 @@ This is a starter project for a REST API using Gorm and Fiber.
 - Each test case must run on fresh testing database
 - Each test case must clean up after itself
 - Test must not run on production database
+- Required Things
+  - Test database
+  - Test environment
+  - Test configuration
+  - httpexpect on fiber
+

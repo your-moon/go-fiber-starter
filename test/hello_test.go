@@ -1,31 +1,26 @@
 package test
 
 import (
-	"net/http"
 	"testing"
 
-	"github.com/gavv/httpexpect/v2"
-	"github.com/your-moon/go-fiber-starter/api"
+	"github.com/your-moon/go-fiber-starter/factory"
 )
-
-func FiberHTTPExpect(t *testing.T) *httpexpect.Expect {
-	app := api.Init()
-	return httpexpect.WithConfig(httpexpect.Config{
-		Client: &http.Client{
-			Transport: httpexpect.NewFastBinder(app.Handler()),
-			Jar:       httpexpect.NewCookieJar(),
-		},
-		Reporter: httpexpect.NewAssertReporter(t),
-	})
-}
 
 func TestHello(t *testing.T) {
 	freshDB()
 
 	e := FiberHTTPExpect(t)
-	if e == nil {
-		t.Fatal("e is nil")
-	}
-
 	e.GET("/").Expect().Status(200).Text().IsEqual("Hello, World!")
+}
+
+func TestGetUser(t *testing.T) {
+	freshDB()
+
+	user := factory.UserFactory(true)
+
+	e := FiberHTTPExpect(t)
+	e.GET("/user/1").Expect().Status(200).JSON().Object().ContainsSubset(map[string]interface{}{
+		"id":    user.ID,
+		"email": user.Email,
+	})
 }

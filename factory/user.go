@@ -6,7 +6,7 @@ import (
 	"github.com/your-moon/go-fiber-starter/services"
 )
 
-func userFactory(commitDB bool) models.User {
+func UserFactory(commitDB bool) models.User {
 	var user models.User
 	gofakeit.Struct(&user)
 

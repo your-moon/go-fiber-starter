@@ -1,2 +1,12 @@
 server:
-  database: "prod.db"
+  app_name: "starter"
+  app_prefork: true
+  port: 8080
+  host: "localhost"
+db:
+  name: "starter"
+  user: "postgres"
+  password: "postgres"
+  host: "localhost"
+  port: 5432
+  timezone: "UTC"

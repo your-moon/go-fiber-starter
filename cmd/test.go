@@ -7,39 +7,26 @@ import (
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/your-moon/go-fiber-starter/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var Test bool
 
-func useTestConfig() {
-	viper.AddConfigPath("./config/")
-	viper.SetConfigName("test")
-	viper.SetConfigType("yaml")
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
-
-	color.Green("Using config file: %s", viper.ConfigFileUsed())
-}
-
 var testCmd = &cobra.Command{
 	Use: "test",
 	RunE: func(cmd *cobra.Command, args []string) error {
-
-		useTestConfig()
 
 		if Prod {
 			return errors.New(color.RedString("Cannot run test in production mode"))
 		}
 
+		config.UseTestConfig()
+
 		fmt.Printf(color.GreenString("Test mode"))
 
 		//test db connection
-
 		dbConfigUrl := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 			viper.GetString("db.host"),
 			viper.GetString("db.port"),

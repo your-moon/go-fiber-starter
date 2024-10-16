@@ -9,6 +9,8 @@ This is a starter project for a REST API using Gorm and Fiber.
 - JWT
 - Swagger
 - Docker
+- Validation
+- Firebase
 
 ### Visual
 

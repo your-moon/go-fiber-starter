@@ -8,7 +8,7 @@ This is a starter project for a REST API using Gorm and Fiber.
 - Fiber
 - JWT
 - Swagger
-- Docker
+- Podman
 - Validation
 - Firebase
 
@@ -28,3 +28,8 @@ This is a starter project for a REST API using Gorm and Fiber.
   - Test configuration
   - httpexpect on fiber
 
+### Security
+
+- [ ] IAM
+- [ ] CIA
+- [ ] Logging

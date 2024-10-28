@@ -7,9 +7,15 @@ import (
 	"github.com/spf13/viper"
 )
 
-func UseProdConfig() {
+var InitCfgFile string
+
+func UseConfig(name string) {
+	if InitCfgFile != "" {
+		return
+	}
+
 	viper.AddConfigPath("./config/")
-	viper.SetConfigName("prod")
+	viper.SetConfigName(name)
 	viper.SetConfigType("yaml")
 
 	err := viper.ReadInConfig()
@@ -18,6 +24,17 @@ func UseProdConfig() {
 	}
 
 	color.Green("Using config file: %s", viper.ConfigFileUsed())
+}
+
+func UseInitConfig() {
+	if InitCfgFile != "" {
+		viper.SetConfigFile(InitCfgFile)
+		if err := viper.ReadInConfig(); err != nil {
+			panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		}
+		color.Green("Using config file: %s", viper.ConfigFileUsed())
+		return
+	}
 }
 
 func UseTestConfig() {

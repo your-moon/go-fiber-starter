@@ -7,14 +7,14 @@ import (
 )
 
 func TestHello(t *testing.T) {
-	freshDB()
+	initAndFreshDB()
 
 	e := FiberHTTPExpect(t)
 	e.GET("/").Expect().Status(200).Text().IsEqual("Hello, World!")
 }
 
 func TestGetUser(t *testing.T) {
-	freshDB()
+	initAndFreshDB()
 
 	user := factory.UserFactory(true)
 
@@ -26,7 +26,7 @@ func TestGetUser(t *testing.T) {
 }
 
 func TestCreateUser(t *testing.T) {
-	freshDB()
+	initAndFreshDB()
 
 	e := FiberHTTPExpect(t)
 	e.POST("/user").WithJSON(map[string]interface{}{

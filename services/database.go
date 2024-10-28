@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/spf13/viper"
-	"github.com/your-moon/go-fiber-starter/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -12,7 +11,7 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	config.UseTestConfig()
+
 	dbConfigUrl := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		viper.GetString("db.host"),
 		viper.GetString("db.port"),

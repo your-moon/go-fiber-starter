@@ -36,3 +36,16 @@ func UseInitConfig() {
 		return
 	}
 }
+
+func UseTestConfig(absolutePath string) {
+	viper.AddConfigPath(absolutePath)
+	viper.SetConfigName("test")
+	viper.SetConfigType("yaml")
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	}
+
+	color.Green("Using config file: %s", viper.ConfigFileUsed())
+}

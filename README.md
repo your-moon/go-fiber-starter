@@ -1,4 +1,4 @@
-### Go Gorm Fiber starter
+<h1 align="center">Go Gorm Fiber starter</h1>
 
 This is a starter project for a REST API using Gorm and Fiber.
 

@@ -36,16 +36,3 @@ func UseInitConfig() {
 		return
 	}
 }
-
-func UseTestConfig() {
-	viper.AddConfigPath("/Users/munkherdeneerdenebat/project/go-fiber-starter/config/")
-	viper.SetConfigName("test")
-	viper.SetConfigType("yaml")
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
-
-	color.Green("Using config file: %s", viper.ConfigFileUsed())
-}

@@ -13,7 +13,7 @@ import (
 )
 
 func initAndFreshDB() {
-	config.UseTestConfig()
+	config.UseConfig("test")
 	services.InitDB()
 	if services.DB == nil {
 		panic("DB not initialized")

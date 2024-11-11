@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/your-moon/go-fiber-starter/factory"
+	"github.com/your-moon/go-fiber-starter/internal/factory"
 )
 
 func TestHello(t *testing.T) {

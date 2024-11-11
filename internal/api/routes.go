@@ -2,8 +2,9 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/your-moon/go-fiber-starter/models"
-	"github.com/your-moon/go-fiber-starter/services"
+
+	"github.com/your-moon/go-fiber-starter/internal/models"
+	"github.com/your-moon/go-fiber-starter/internal/services"
 )
 
 var App *fiber.App

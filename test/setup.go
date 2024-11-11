@@ -6,10 +6,10 @@ import (
 
 	"github.com/gavv/httpexpect/v2"
 
-	"github.com/your-moon/go-fiber-starter/api"
 	"github.com/your-moon/go-fiber-starter/config"
-	"github.com/your-moon/go-fiber-starter/models"
-	"github.com/your-moon/go-fiber-starter/services"
+	"github.com/your-moon/go-fiber-starter/internal/api"
+	"github.com/your-moon/go-fiber-starter/internal/models"
+	"github.com/your-moon/go-fiber-starter/internal/services"
 )
 
 func initAndFreshDB() {

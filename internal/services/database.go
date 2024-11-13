@@ -10,7 +10,7 @@ import (
 
 var DB *gorm.DB
 
-func InitDB() {
+func InitDB() error {
 
 	dbConfigUrl := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		viper.GetString("db.host"),
@@ -27,8 +27,9 @@ func InitDB() {
 	})
 
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
 
 	DB = db
+	return nil
 }

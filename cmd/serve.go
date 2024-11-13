@@ -18,13 +18,19 @@ var serveCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		if config.InitCfgFile != "" {
-			run()
+			if err := run(); err != nil {
+				return err
+			}
 		}
 
 		if Prod {
-			runProd()
+			if err := runProd(); err != nil {
+				return err
+			}
 		} else {
-			runDev()
+			if err := runDev(); err != nil {
+				return err
+			}
 		}
 		return nil
 	},
@@ -35,34 +41,43 @@ func init() {
 	serveCmd.Flags().BoolVarP(&Prod, "prod", "p", false, "Run in production mode")
 }
 
-func run() {
+func run() error {
 	fmt.Println("Config mode")
 
-	services.InitDB()
+	if err := services.InitDB(); err != nil {
+		return err
+	}
 
 	app := api.Init()
 	app.Listen(viper.GetString("server.host") + ":" + viper.GetString("server.port"))
+	return nil
 }
 
-func runDev() {
+func runDev() error {
 	config.UseConfig("dev")
 	fmt.Println("Running in development mode")
 
-	services.InitDB()
+	if err := services.InitDB(); err != nil {
+		return err
+	}
 
 	app := api.Init()
 	app.Listen(viper.GetString("server.host") + ":" + viper.GetString("server.port"))
+	return nil
 }
 
-func runProd() {
+func runProd() error {
 	config.UseConfig("prod")
 
 	fmt.Println("Running in production mode")
 
-	services.InitDB()
+	if err := services.InitDB(); err != nil {
+		return err
+	}
 
 	app := api.Init()
 	app.Listen(viper.GetString("server.host") + ":" + viper.GetString("server.port"))
+	return nil
 }
 
 // name cases: prod, dev, test

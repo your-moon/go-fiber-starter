@@ -10,3 +10,8 @@ db:
   host: "localhost"
   port: 5432
   timezone: "UTC"
+
+auth:
+  jwt:
+    secret: agXi6CYABLOWuF73iFn7
+    expiration: 604800 # 7 days

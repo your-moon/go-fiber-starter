@@ -8,7 +8,7 @@ import (
 
 	"github.com/your-moon/go-fiber-starter/config"
 	"github.com/your-moon/go-fiber-starter/internal/api"
-	"github.com/your-moon/go-fiber-starter/internal/services"
+	"github.com/your-moon/go-fiber-starter/internal/integrations"
 )
 
 var Prod bool
@@ -44,7 +44,7 @@ func init() {
 func run() error {
 	fmt.Println("Config mode")
 
-	if err := services.InitDB(); err != nil {
+	if err := integrations.InitDB(); err != nil {
 		return err
 	}
 
@@ -57,7 +57,7 @@ func runDev() error {
 	config.UseConfig("dev")
 	fmt.Println("Running in development mode")
 
-	if err := services.InitDB(); err != nil {
+	if err := integrations.InitDB(); err != nil {
 		return err
 	}
 
@@ -71,7 +71,7 @@ func runProd() error {
 
 	fmt.Println("Running in production mode")
 
-	if err := services.InitDB(); err != nil {
+	if err := integrations.InitDB(); err != nil {
 		return err
 	}
 

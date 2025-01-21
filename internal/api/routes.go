@@ -3,8 +3,8 @@ package api
 import (
 	"github.com/gofiber/fiber/v2"
 
+	"github.com/your-moon/go-fiber-starter/internal/integrations"
 	"github.com/your-moon/go-fiber-starter/internal/models"
-	"github.com/your-moon/go-fiber-starter/internal/services"
 )
 
 var App *fiber.App
@@ -19,7 +19,7 @@ func Init() *fiber.App {
 		ID, _ := c.ParamsInt("id")
 
 		var user models.User
-		if err := services.DB.First(&user, ID).Error; err != nil {
+		if err := integrations.DB.First(&user, ID).Error; err != nil {
 			return c.Status(404).SendString("User not found")
 		}
 
@@ -32,7 +32,7 @@ func Init() *fiber.App {
 			return c.Status(400).SendString(err.Error())
 		}
 
-		if err := services.DB.Create(&params).Error; err != nil {
+		if err := integrations.DB.Create(&params).Error; err != nil {
 			return c.Status(500).SendString(err.Error())
 		}
 

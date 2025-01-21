@@ -3,17 +3,26 @@ package factory
 import (
 	"github.com/brianvoe/gofakeit/v7"
 
+	"github.com/your-moon/go-fiber-starter/internal/integrations"
 	"github.com/your-moon/go-fiber-starter/internal/models"
-	"github.com/your-moon/go-fiber-starter/internal/services"
 )
 
-func UserFactory(commitDB bool) models.User {
-	var user models.User
-	gofakeit.Struct(&user)
+type OptionUser func(*models.User)
 
-	if commitDB {
-		services.DB.Create(&user)
+func UserFactory(commitDB bool, opts ...OptionUser) (models.User, error) {
+	var user models.User
+	err := gofakeit.Struct(&user)
+	if err != nil {
+		return models.User{}, err
 	}
 
-	return user
+	for _, opt := range opts {
+		opt(&user)
+	}
+
+	if commitDB {
+		integrations.DB.Create(&user)
+	}
+
+	return user, nil
 }

@@ -3,6 +3,8 @@ package test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/your-moon/go-fiber-starter/internal/factory"
 )
 
@@ -16,7 +18,8 @@ func TestHello(t *testing.T) {
 func TestGetUser(t *testing.T) {
 	initAndFreshDB()
 
-	user := factory.UserFactory(true)
+	user, err := factory.UserFactory(true)
+	assert.NoError(t, err)
 
 	e := FiberHTTPExpect(t)
 	e.GET("/user/1").Expect().Status(200).JSON().Object().ContainsSubset(map[string]interface{}{
